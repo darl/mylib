@@ -1,5 +1,7 @@
 package ru.darlz.mylib.server;
 
+import net.sf.jasperreports.engine.JRException;
+import ru.darlz.mylib.JasperReporter;
 import ru.darlz.mylib.client.GreetingService;
 import ru.darlz.mylib.shared.FieldVerifier;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,7 +29,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     input = escapeHtml(input);
     userAgent = escapeHtml(userAgent);
 
-    return "Hello, " + input + "!<br><br>I am running " + serverInfo
+      try {
+          new JasperReporter().doReport(input);
+      } catch (JRException e) {
+          System.out.println(e);
+          e.printStackTrace(System.out);
+      }
+
+      return "Hello, " + input + "!<br><br>I am running " + serverInfo
         + ".<br><br>It looks like you are using:<br>" + userAgent;
   }
 

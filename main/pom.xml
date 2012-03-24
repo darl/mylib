@@ -61,6 +61,13 @@
         <groupId>jasperreports</groupId>
         <artifactId>jasperreports</artifactId>
         <version>3.5.3</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>eclipse</groupId>
+                  <artifactId>jdtcore</artifactId>
+              </exclusion>
+          </exclusions>
+          <scope>provided</scope>
       </dependency>
   </dependencies>
 
