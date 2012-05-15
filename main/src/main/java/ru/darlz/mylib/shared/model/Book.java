@@ -1,6 +1,8 @@
 package ru.darlz.mylib.shared.model;
 
 
+import org.hibernate.criterion.Order;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,13 +14,16 @@ import java.util.Date;
 @Table(name = "books")
 public class Book {
     @Id
-    @Column(name= "id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "author")
     private Author author;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "publisher")
     private String publisher;
@@ -79,5 +84,21 @@ public class Book {
 
     public String getKeywords() {
         return keywords;
+    }
+
+    public enum OrderField {
+        NAME(Order.asc("name")),
+        AUTHOR(Order.asc("author")),
+        ;
+
+        private final Order order;
+
+        private OrderField(Order order) {
+            this.order = order;
+        }
+
+        public Order getOrder() {
+            return order;
+        }
     }
 }
