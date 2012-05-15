@@ -36,4 +36,26 @@ public class Author {
     public int getBornYear() {
         return bornYear;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        if (bornYear != author.bornYear) return false;
+        if (id != author.id) return false;
+        if (fullName != null ? !fullName.equals(author.fullName) : author.fullName != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + bornYear;
+        return result;
+    }
 }
